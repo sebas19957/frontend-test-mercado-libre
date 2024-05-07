@@ -1,4 +1,4 @@
-const SearchResult = () => {
+const ProductDetailPage = () => {
   return (
     <div
       style={{
@@ -14,7 +14,6 @@ const SearchResult = () => {
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "flex-start",
-          // flexWrap: "wrap",
           gap: "0.7rem",
         }}
       >
@@ -103,19 +102,24 @@ const SearchResult = () => {
         style={{
           display: "flex",
           flexDirection: "column",
+          backgroundColor: "white",
           width: "50%",
-          gap: "1px",
+          gap: "4px",
+          padding: "15px",
         }}
       >
-        {[...new Array(100)].map((item) => (
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            padding: "15px",
+            gap: "15px",
+          }}
+        >
           <div
-            key={item}
             style={{
               display: "flex",
               width: "100%",
-              backgroundColor: "white",
-              padding: "5px",
-              gap: "15px",
             }}
           >
             <div>
@@ -123,8 +127,8 @@ const SearchResult = () => {
                 src="https://http2.mlstatic.com/D_620616-MLA49003338062_022022-I.jpg"
                 alt="apple"
                 style={{
-                  width: "190px",
-                  height: "190px",
+                  width: "500px",
+                  height: "500px",
                   borderRadius: "10px",
                 }}
               />
@@ -136,17 +140,42 @@ const SearchResult = () => {
                 maxWidth: "60%",
               }}
             >
-              <h2>$ 64.999</h2>
-              <h3 style={{ fontWeight: "normal" }}>
+              <h2>
                 Cargador Fast Apple Original iPhone 13 13 Pro Max Usb-c 20w
                 Color Blanco - Distribuidor Autorizado
-              </h3>
+              </h2>
+              <span style={{ fontSize: "36px" }}>$ 64.999</span>
+              <button
+                style={{
+                  padding: "10px",
+                  backgroundColor: "#3483FA",
+                  borderRadius: "5px",
+                  color: "white",
+                  border: "none",
+                  cursor: "pointer",
+                  marginTop: "15px",
+                }}
+              >
+                Comparar Ahora
+              </button>
             </div>
           </div>
-        ))}
+        </div>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <span style={{ fontSize: "32px" }}>Descripción del producto</span>
+          <span style={{ marginTop: "15px" }}>
+            Cargador Fast Apple Original iPhone 13 13 Pro Max Usb-c 20w Color
+            Blanco - Distribuidor AutorizadoCargador Fast Apple Original iPhone
+            13 13 Pro Max Usb-c 20w Color Blanco - Distribuidor
+            AutorizadoCargador Fast Apple Original iPhone 13 13 Pro Max Usb-c
+            20w Color Blanco - Distribuidor AutorizadoCargador Fast Apple
+            Original iPhone 13 13 Pro Max Usb-c 20w Color Blanco - Distribuidor
+            Autorizado
+          </span>
+        </div>
       </div>
     </div>
   );
 };
 
-export default SearchResult;
+export default ProductDetailPage;

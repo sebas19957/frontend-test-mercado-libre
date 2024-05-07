@@ -1,0 +1,31 @@
+// src/pages/NotFoundPage/NotFoundPage.module.scss
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.notFound {
+  animation: fadeIn 1s ease-in-out;
+  text-align: center;
+  padding: 50px;
+
+  .animatedImage {
+    max-width: 100%;
+    height: auto;
+    animation: fadeIn 2s ease-in-out;
+  }
+
+  h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #666;
+  }
+}

@@ -1,4 +1,4 @@
-const SearchResult = () => {
+const SearchResultsPage = () => {
   return (
     <div
       style={{
@@ -14,7 +14,6 @@ const SearchResult = () => {
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "flex-start",
-          // flexWrap: "wrap",
           gap: "0.7rem",
         }}
       >
@@ -149,4 +148,4 @@ const SearchResult = () => {
   );
 };
 
-export default SearchResult;
+export default SearchResultsPage;
