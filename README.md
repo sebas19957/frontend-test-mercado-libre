@@ -1,46 +1,66 @@
-# Getting Started with Create React App
+# Mercado Libre Frontend Test
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este repositorio contiene el código fuente para el test práctico de frontend para aspirantes a Mercado Libre.
 
-## Available Scripts
+## Tecnologías Utilizadas
 
-In the project directory, you can run:
+- **Cliente**: React con TypeScript, HTML, CSS (Sass)
+- **Servidor**: Node.js con Express
+- **Pruebas Unitarias**: Jest, React Testing Library
 
-### `npm start`
+## Estructura del Proyecto
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+La aplicación consta de tres componentes principales:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. **Caja de Búsqueda**: Permite a los usuarios ingresar el producto a buscar.
+2. **Resultado de la Búsqueda**: Muestra los productos encontrados.
+3. **Detalle del Producto**: Proporciona información detallada de un producto específico.
 
-### `npm test`
+## Rutas de la Aplicación
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Caja de Búsqueda**: `/`
+- **Resultados de la Búsqueda**: `/items?search=`
+- **Detalle del Producto**: `/items/:id`
 
-### `npm run build`
+## Endpoints de la API
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Búsqueda**: `/api/items?q=:query`
+- **Detalle del Producto**: `/api/items/:id`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Instrucciones de Instalación
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Para instalar y ejecutar este proyecto localmente, sigue estos pasos:
 
-### `npm run eject`
+1. Clona el repositorio:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+git clone [URL_DEL_REPOSITORIO]
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Instala las dependencias:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+npm install
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+3. Inicia el servidor de desarrollo:
 
-## Learn More
+```
+npm start
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Pruebas Unitarias
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Para ejecutar las pruebas unitarias, utiliza el siguiente comando:
+
+```
+npm test
+```
+
+## Contribuciones
+
+Las contribuciones son bienvenidas. Por favor, envía un pull request o abre un issue para discutir los cambios propuestos.
+
+## Autor
+
+- **Nombre**: Sebastian Mosquera Valencia
