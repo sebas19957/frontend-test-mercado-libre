@@ -1,0 +1,35 @@
+.container {
+  width: 100%;
+  max-width: 920px; // Ancho máximo para 'lg'
+  margin-right: auto; // Centra el contenedor a la derecha
+  margin-left: auto; // Centra el contenedor a la izquierda
+  padding-right: 16px; // Espaciado interno a la derecha
+  padding-left: 16px; // Espaciado interno a la izquierda
+}
+
+// Media queries para ajustar los tamaños según la resolución de pantalla
+@media (max-width: 1280px) {
+  .container {
+    max-width: 960px; // Ancho máximo para 'md'
+  }
+}
+
+@media (max-width: 960px) {
+  .container {
+    max-width: 720px; // Ancho máximo para 'sm'
+  }
+}
+
+@media (max-width: 720px) {
+  .container {
+    max-width: 540px; // Ancho máximo para 'xs'
+  }
+}
+
+@media (max-width: 540px) {
+  .container {
+    max-width: 90%; // Ocupa el 100% del ancho en pantallas muy pequeñas
+    // padding-right: 8px; // Reduce el espaciado interno a la derecha
+    // padding-left: 8px; // Reduce el espaciado interno a la izquierda
+  }
+}

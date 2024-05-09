@@ -1,0 +1,55 @@
+.skeleton-loader {
+  $color-skeleton-background: transparent;
+  $color-skeleton-element: #d4d4d4;
+  $color-skeleton-loader: #acacac;
+
+  display: flex;
+  background-color: $color-skeleton-background;
+  padding: 5px;
+  gap: 15px;
+
+  .skeleton-image,
+  .skeleton-price,
+  .skeleton-title {
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  .skeleton-image {
+    width: 100%;
+    max-width: 190px;
+    height: 120px;
+    background-color: $color-skeleton-element;
+    border-radius: 10px;
+  }
+
+  .skeleton-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px;
+
+    .skeleton-price,
+    .skeleton-title {
+      background-color: $color-skeleton-element;
+      border-radius: 4px;
+      height: 20px;
+      width: 80%;
+    }
+
+    .skeleton-title {
+      width: 90%;
+    }
+  }
+
+  @keyframes pulse {
+    0% {
+      background-color: $color-skeleton-element;
+    }
+    50% {
+      background-color: $color-skeleton-loader;
+    }
+    100% {
+      background-color: $color-skeleton-element;
+    }
+  }
+}

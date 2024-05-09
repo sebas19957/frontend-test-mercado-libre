@@ -1,18 +1,47 @@
+// SCSS styles
 $search-color: #666666;
 $search-bg: #ffffff;
 $search-border-color: #eeeeee;
 $search-button-color: #ededed;
+
+.search-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background-color: #ffe600;
+  padding: 8px 0;
+
+  .logo {
+    width: 40px;
+    height: 30px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    .logo {
+      width: 35px;
+      height: 25px;
+    }
+  }
+}
 
 .search-container {
   display: flex;
   align-items: center;
   background-color: $search-bg;
   border: 1px solid $search-border-color;
-  // border-radius: 2px;
+  border-radius: 2px;
+  width: 40%;
+
+  @media (max-width: 768px) {
+    width: 80%;
+  }
 }
 
 .search-input {
-  width: 500px;
+  width: 100%;
   flex-grow: 1;
   border: none;
   padding: 10px;
@@ -35,17 +64,11 @@ $search-button-color: #ededed;
   border-radius: 2px;
   cursor: pointer;
 
-  // &:hover {
-  //   background-color: darken($search-button-color, 10%);
-  // }
+  &:hover {
+    background-color: darken($search-button-color, 10%);
+  }
 
   &:focus {
     outline: none;
   }
-}
-
-.search-icon {
-  fill: $search-bg;
-  width: 24px;
-  height: 24px;
 }

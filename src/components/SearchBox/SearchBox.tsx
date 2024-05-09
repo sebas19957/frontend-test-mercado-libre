@@ -1,25 +1,37 @@
+import { FormEvent, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import isotipo from "../../assets/logos/isotipo.png";
 import "./SearchBox.scss";
 
 const SearchBox = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const [query, setQuery] = useState<string>(queryParams.get("search") || "");
+
+  useEffect(() => {
+    const searchParam = queryParams.get("search");
+    if (searchParam) {
+      setQuery(searchParam);
+    }
+  }, [location]);
+
+  const handleSearch = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    navigate(`/items?search=${query}`);
+  };
+
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: "10px",
-        width: "100vw",
-        backgroundColor: "#FFE600",
-        padding: "8px 0",
-      }}
-    >
-      <img src={isotipo} alt="logo" style={{ width: "40px", height: "30px" }} />
-      <div className="search-container">
+    <div className="search-box">
+      <img src={isotipo} alt="logo" className="logo" />
+      <form onSubmit={handleSearch} className="search-container">
         <input
           type="text"
+          value={query}
           className="search-input"
           placeholder="Buscar productos, marcas y más..."
+          onChange={(e) => setQuery(e.target.value)}
         />
         <button className="search-button">
           <svg
@@ -39,7 +51,7 @@ const SearchBox = () => {
             <path d="M21 21l-6 -6" />
           </svg>
         </button>
-      </div>
+      </form>
     </div>
   );
 };

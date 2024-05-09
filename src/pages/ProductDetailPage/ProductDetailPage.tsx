@@ -1,180 +1,82 @@
-const ProductDetailPage = () => {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: "15px",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-          gap: "0.7rem",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "0.875rem",
-            color: "#6b7280",
-            marginBottom: "0.5rem",
-          }}
-        >
-          Búsquedas relacionadas:
-        </span>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          ipad
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          apple
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          iphone
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          apple watch
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          apple pencil
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          airtags apple
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          apple headphones
-        </a>
-      </div>
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getProduct } from "../../api/product";
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          backgroundColor: "white",
-          width: "50%",
-          gap: "4px",
-          padding: "15px",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            padding: "15px",
-            gap: "15px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-            }}
-          >
-            <div>
-              <img
-                src="https://http2.mlstatic.com/D_620616-MLA49003338062_022022-I.jpg"
-                alt="apple"
-                style={{
-                  width: "500px",
-                  height: "500px",
-                  borderRadius: "10px",
-                }}
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                maxWidth: "60%",
-              }}
-            >
-              <h2>
-                Cargador Fast Apple Original iPhone 13 13 Pro Max Usb-c 20w
-                Color Blanco - Distribuidor Autorizado
-              </h2>
-              <span style={{ fontSize: "36px" }}>$ 64.999</span>
-              <button
-                style={{
-                  padding: "10px",
-                  backgroundColor: "#3483FA",
-                  borderRadius: "5px",
-                  color: "white",
-                  border: "none",
-                  cursor: "pointer",
-                  marginTop: "15px",
-                }}
-              >
-                Comparar Ahora
-              </button>
-            </div>
-          </div>
+import { ProductResult } from "../../interfaces/detail-product";
+import DetailProductSkeletonLoader from "../../components/DetailProductSkeletonLoader/DetailProductSkeletonLoader";
+import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
+import Container from "../../components/Container/Container";
+
+import "./ProductDetailPage.scss";
+import formatNumberLocale from "../../utils/helpers/formatNumberLocale";
+
+const ProductDetailPage = () => {
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState<ProductResult>();
+  const params = useParams();
+  const itemId = params.id;
+
+  useEffect(() => {
+    if (itemId) {
+      const fetchData = async () => {
+        setLoading(true);
+        try {
+          const response = await getProduct(itemId);
+          setData(response);
+        } catch (error: any) {
+          console.error(error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchData();
+    }
+  }, [itemId]);
+
+  return (
+    <Container>
+      <div className="product-detail">
+        <div className="related-searches">
+          <span className="related-title">Búsquedas relacionadas:</span>
+          <Breadcrumbs categories={data?.item.category!} />
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <span style={{ fontSize: "32px" }}>Descripción del producto</span>
-          <span style={{ marginTop: "15px" }}>
-            Cargador Fast Apple Original iPhone 13 13 Pro Max Usb-c 20w Color
-            Blanco - Distribuidor AutorizadoCargador Fast Apple Original iPhone
-            13 13 Pro Max Usb-c 20w Color Blanco - Distribuidor
-            AutorizadoCargador Fast Apple Original iPhone 13 13 Pro Max Usb-c
-            20w Color Blanco - Distribuidor AutorizadoCargador Fast Apple
-            Original iPhone 13 13 Pro Max Usb-c 20w Color Blanco - Distribuidor
-            Autorizado
-          </span>
+
+        <div className="product-container">
+          {loading ? (
+            <DetailProductSkeletonLoader />
+          ) : (
+            data && (
+              <>
+                <div className="product-display">
+                  <div className="image-container">
+                    <img
+                      src={data.item.picture}
+                      alt={data.item.title}
+                      className="product-image"
+                    />
+                  </div>
+                  <div className="product-info">
+                    <h2 className="product-title">{data.item.title}</h2>
+                    <span className="product-price">
+                      ${formatNumberLocale(data.item.price.amount)}
+                    </span>
+                    <button className="compare-button">Comparar Ahora</button>
+                  </div>
+                </div>
+                <div className="product-description">
+                  <span className="description-title">
+                    Descripción del producto
+                  </span>
+                  <span className="description-text">
+                    {data.item.description}
+                  </span>
+                </div>
+              </>
+            )
+          )}
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

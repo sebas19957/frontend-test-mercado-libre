@@ -1,150 +1,85 @@
-const SearchResultsPage = () => {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: "15px",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
-          gap: "0.7rem",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "0.875rem",
-            color: "#6b7280",
-            marginBottom: "0.5rem",
-          }}
-        >
-          Búsquedas relacionadas:
-        </span>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          ipad
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          apple
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          iphone
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          apple watch
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          apple pencil
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          airtags apple
-        </a>
-        <a
-          href="#"
-          style={{
-            color: "#2563eb",
-            fontSize: "0.875rem",
-            textDecoration: "none",
-          }}
-        >
-          apple headphones
-        </a>
-      </div>
+import { useEffect, useState } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "50%",
-          gap: "1px",
-        }}
-      >
-        {[...new Array(100)].map((item) => (
-          <div
-            key={item}
-            style={{
-              display: "flex",
-              width: "100%",
-              backgroundColor: "white",
-              padding: "5px",
-              gap: "15px",
-            }}
-          >
-            <div>
-              <img
-                src="https://http2.mlstatic.com/D_620616-MLA49003338062_022022-I.jpg"
-                alt="apple"
-                style={{
-                  width: "190px",
-                  height: "190px",
-                  borderRadius: "10px",
-                }}
-              />
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                maxWidth: "60%",
-              }}
-            >
-              <h2>$ 64.999</h2>
-              <h3 style={{ fontWeight: "normal" }}>
-                Cargador Fast Apple Original iPhone 13 13 Pro Max Usb-c 20w
-                Color Blanco - Distribuidor Autorizado
-              </h3>
-            </div>
+import Container from "../../components/Container/Container";
+import SearchSkeletonLoader from "../../components/SearchSkeletonLoader/SearchSkeletonLoader";
+import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
+
+import { SearchResult } from "../../interfaces/search";
+import { searchItems } from "../../api/search";
+
+import "./SearchResultsPage.scss";
+import NoResultSearch from "../../components/NoResultSearch/NoResultSearch";
+import formatNumberLocale from "../../utils/helpers/formatNumberLocale";
+
+const SearchResultsPage = () => {
+  const [loading, setloading] = useState(false);
+  const [data, setData] = useState<SearchResult>();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const query = searchParams.get("search");
+    if (query) {
+      const fetchData = async () => {
+        setloading(true);
+        try {
+          const response = await searchItems(query);
+          setData(response);
+        } catch (error: any) {
+          console.log(error);
+        } finally {
+          setloading(false);
+        }
+      };
+      fetchData();
+    }
+  }, [searchParams]);
+
+  const onRedirectProduct = (id: string) => {
+    navigate(`/items/${id}`);
+  };
+
+  return (
+    <Container>
+      {data?.items.length === 0 && !loading && <NoResultSearch />}
+
+      <div className="search-results">
+        {data?.items.length !== 0 && (
+          <div className="related-searches">
+            <span className="related-title">Búsquedas relacionadas:</span>
+            <Breadcrumbs categories={data?.categories!} />
           </div>
-        ))}
+        )}
+        <div className="results-container">
+          {loading
+            ? [...new Array(4)].map((_, index) => (
+                <SearchSkeletonLoader key={index} />
+              ))
+            : data?.items.map((item) => (
+                <div key={item.id} className="result-item">
+                  <div className="imagen-container">
+                    <img
+                      src={item.picture}
+                      alt={item.title}
+                      className="result-image"
+                      onClick={() => onRedirectProduct(item.id)}
+                    />
+                  </div>
+                  <div className="result-info">
+                    <h2
+                      className="result-price"
+                      onClick={() => onRedirectProduct(item.id)}
+                    >
+                      ${formatNumberLocale(item.price.amount)}
+                    </h2>
+                    <h3 className="result-title">{item.title}</h3>
+                  </div>
+                </div>
+              ))}
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
