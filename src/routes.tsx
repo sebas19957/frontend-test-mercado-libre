@@ -23,7 +23,7 @@ export default function AppRoutes() {
       element: <GeneralLayout />,
       children: [
         {
-          element: <Navigate to="/app/controlPanel" />,
+          element: <Navigate to="/" />,
           index: true,
         },
 

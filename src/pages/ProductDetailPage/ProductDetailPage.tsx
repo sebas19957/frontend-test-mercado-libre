@@ -9,6 +9,8 @@ import Container from "../../components/Container/Container";
 
 import "./ProductDetailPage.scss";
 import formatNumberLocale from "../../utils/helpers/formatNumberLocale";
+import { Helmet } from "react-helmet";
+import capitalizeText from "../../utils/helpers/capitalizeText";
 
 const ProductDetailPage = () => {
   const [loading, setLoading] = useState(false);
@@ -23,6 +25,12 @@ const ProductDetailPage = () => {
         try {
           const response = await getProduct(itemId);
           setData(response);
+
+          const pageTitle = data?.item.title
+            ? `${capitalizeText(response?.item.title)} | MercadoLibre 📦`
+            : "MercadoLibre 📦";
+
+          document.title = pageTitle;
         } catch (error: any) {
           console.error(error);
         } finally {
@@ -35,6 +43,20 @@ const ProductDetailPage = () => {
 
   return (
     <Container>
+      {/* <Helmet>
+        <title>
+          {data?.item.title
+            ? `${capitalizeText(data?.item.title)} | MercadoLibre 📦`
+            : "MercadoLibre 📦"}
+        </title>
+        <meta
+          name="description"
+          content={`Encuentra los mejores productos para ${
+            data?.item.category || "cualquier producto"
+          }`}
+        />
+        <meta name="keywords" content={`${data?.item.category}`} />
+      </Helmet> */}
       <div className="product-detail">
         <div className="related-searches">
           <span className="related-title">Búsquedas relacionadas:</span>
