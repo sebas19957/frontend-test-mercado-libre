@@ -1,14 +1,11 @@
-// Variables para colores globales
 $color-gray: #6b7280;
 $color-blue: #3483fa;
 $color-white: white;
 
-// SCSS styles
 .product-detail {
   display: flex;
   flex-direction: column;
   align-items: center;
-  // margin-top: 15px;
 
   .related-searches {
     width: 100%;
@@ -20,7 +17,7 @@ $color-white: white;
 
   .related-title {
     font-size: 14px;
-    color: #6b7280;
+    color: $color-gray;
   }
 
   .product-container {
@@ -28,7 +25,7 @@ $color-white: white;
     flex-direction: column;
     background-color: $color-white;
     width: 100%;
-    max-width: 1080px; // Ancho máximo para grandes pantallas
+    max-width: 1080px;
     gap: 4px;
   }
 

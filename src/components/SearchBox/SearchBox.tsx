@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import isotipo from "../../assets/logos/isotipo.png";
@@ -7,7 +7,10 @@ import "./SearchBox.scss";
 const SearchBox = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
+  const queryParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search]
+  );
   const [query, setQuery] = useState<string>(queryParams.get("search") || "");
 
   useEffect(() => {
@@ -15,7 +18,7 @@ const SearchBox = () => {
     if (searchParam) {
       setQuery(searchParam);
     }
-  }, [location]);
+  }, [queryParams]);
 
   const handleSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -1,4 +1,4 @@
-import { Navigate, useLocation, useRoutes } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 
 import HomePage from "./pages/HomePage/HomePage";
 import GeneralLayout from "./layouts/GeneralLayout/GeneralLayout";

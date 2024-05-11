@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import Container from "../../components/Container/Container";
-import SearchSkeletonLoader from "../../components/SearchSkeletonLoader/SearchSkeletonLoader";
-import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
-
 import { SearchResult } from "../../interfaces/search";
 import { searchItems } from "../../api/search";
 
-import "./SearchResultsPage.scss";
+import Container from "../../components/Container/Container";
+import SearchSkeletonLoader from "../../components/SearchSkeletonLoader/SearchSkeletonLoader";
+import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import NoResultSearch from "../../components/NoResultSearch/NoResultSearch";
-import formatNumberLocale from "../../utils/helpers/formatNumberLocale";
 import NoSearchResponse from "../../components/NoSearchResponse/NoSearchResponse";
+import ResultItem from "../../components/ResultItem/ResultItem";
+
 import capitalizeText from "../../utils/helpers/capitalizeText";
+
+import "./SearchResultsPage.scss";
 
 const SearchResultsPage = () => {
   const [loading, setloading] = useState(false);
@@ -28,7 +29,6 @@ const SearchResultsPage = () => {
         setloading(true);
         try {
           const response = await searchItems(query);
-          console.log(response);
 
           setData(response);
         } catch (error: any) {
@@ -81,27 +81,12 @@ const SearchResultsPage = () => {
             ? [...new Array(4)].map((_, index) => (
                 <SearchSkeletonLoader key={index} />
               ))
-            : query !== "" &&
-              data?.items.map((item) => (
-                <div key={item.id} className="result-item">
-                  <div className="imagen-container">
-                    <img
-                      src={item.picture}
-                      alt={item.title}
-                      className="result-image"
-                      onClick={() => onRedirectProduct(item.id)}
-                    />
-                  </div>
-                  <div className="result-info">
-                    <h2
-                      className="result-price"
-                      onClick={() => onRedirectProduct(item.id)}
-                    >
-                      ${formatNumberLocale(item.price.amount)}
-                    </h2>
-                    <h3 className="result-title">{item.title}</h3>
-                  </div>
-                </div>
+            : data?.items.map((item) => (
+                <ResultItem
+                  key={item.id}
+                  item={item}
+                  onRedirectProduct={onRedirectProduct}
+                />
               ))}
         </div>
       </div>

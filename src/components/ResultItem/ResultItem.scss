@@ -1,0 +1,31 @@
+// ResultItem.scss
+.result-item {
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 1rem;
+
+  .imagen-container {
+    width: 180px;
+    height: 180px;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .result-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 1rem;
+
+    .result-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .result-title {
+      font-size: 1.2rem;
+    }
+  }
+}

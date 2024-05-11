@@ -11,7 +11,6 @@ const Breadcrumbs: React.FC<Props> = ({ categories }) => {
     return `/items?search=${category?.toLowerCase()}`;
   };
 
-  // Verificar si categories es un array o una cadena
   const categoryArray = Array.isArray(categories) ? categories : [categories];
 
   return (

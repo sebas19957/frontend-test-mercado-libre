@@ -5,7 +5,7 @@ import "./GeneralLayout.scss";
 
 const GeneralLayout = () => {
   return (
-    <div style={{ minHeight: "100vh", background: "#EDEDED" }}>
+    <div className="root">
       <SearchBox />
       <div className="container">
         <Outlet />
