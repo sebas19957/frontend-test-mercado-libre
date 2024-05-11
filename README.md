@@ -24,6 +24,8 @@ La aplicación consta de tres componentes principales:
 
 ## Endpoints de la API
 
+repositorio: https://github.com/sebas19957/backend-test-mercado-libre.git
+
 - **Búsqueda**: `/api/items?q=:query`
 - **Detalle del Producto**: `/api/items/:id`
 
