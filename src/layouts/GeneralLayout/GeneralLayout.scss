@@ -1,0 +1,14 @@
+.root {
+  min-height: 100vh;
+  background-color: #ededed;
+}
+
+.container {
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 5px;
+  }
+}
